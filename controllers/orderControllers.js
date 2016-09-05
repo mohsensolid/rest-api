@@ -16,7 +16,7 @@ var OrderController = function(Order){
     var post = function(req,res){
     var order = Order(req.body);
     order.save();
-    console.log(order);
+
     res.status(201).send(order);
 };
     return{

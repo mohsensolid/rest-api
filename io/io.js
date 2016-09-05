@@ -13,7 +13,7 @@ io.on('connection', function (socket) {
     
       message: data
     });
-      console.log(data);
+     
   });
 
     // when the client emits 'remove furit', this listens and executes
@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
   // when the client emits 'add user', this listens and executes
   socket.on('add user', function () {
     // echo globally (all clients) that a person has connected
-      console.log('emmmit');
+    
     socket.broadcast.emit('user joined', {
     
       // username: socket.username,

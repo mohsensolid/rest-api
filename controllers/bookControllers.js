@@ -19,7 +19,7 @@ var bookController = function(Book){
     var post = function(req,res){
     var book = Book(req.body);
     book.save();
-    console.log(book);
+
     res.status(201).send(book);
 };
     return{

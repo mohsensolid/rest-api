@@ -17,7 +17,7 @@ var MessageController = function(Message){
     var post = function(req,res){
     var message = Message(req.body);
     message.save();
-    console.log(message);
+ 
     res.status(201).send(message);
 };
     return{

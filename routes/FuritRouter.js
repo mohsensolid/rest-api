@@ -72,7 +72,7 @@ furitsRouter.route('/:furitid')
 
 
 .get(function(req,res){
-      console.log(req.decoded.Admin);
+   
     res.send(req.furit);
    
 })
@@ -101,7 +101,7 @@ furitsRouter.route('/:furitid')
 // }
 // )
 .patch(function(req,res){
-        console.log(req.body.Available );
+        
     if(req.body._id)
         delete req.body._id;
     for(var p in req.body)
@@ -114,7 +114,7 @@ furitsRouter.route('/:furitid')
             res.status(500).send(err);
         }
         else{
-                console.log(req.furit.Available );
+          
             res.json(req.furit);
         }
     });

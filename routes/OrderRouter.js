@@ -43,7 +43,7 @@ ordersRouter.use(function(req,res,next){
 
 ordersRouter.route('/bydate/:date')
 .get(function(req,res){
-    console.log(req.params.date);
+  
   Order.find({'Date':{$gte:req.params.date}} ,function(err,orders){
         if(err)
         {

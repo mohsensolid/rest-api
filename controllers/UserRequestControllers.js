@@ -17,7 +17,7 @@ var UserRequestController = function(UserRequest){
     var post = function(req,res){
     var user = UserRequest(req.body);
     user.save();
-    console.log(user);
+  
     res.status(201).send(user);
 };
     return{

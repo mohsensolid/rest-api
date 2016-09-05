@@ -15,7 +15,7 @@ usersRouter.route('/signIn')
                 User_Name:user.User_Name,
                 Admin:user.Admin
             };
-              console.log(req.decoded);
+             
                 //    console.log(user);
                         var token = jwt.encode(tokenparameter, 'secret');
                                     res.json({access_token :token});
@@ -66,7 +66,7 @@ for(var p in req.body)
             res.status(500).send(err);
         }
         else{
-                console.log(req.user.Available );
+               
             res.json(req.user);
         }
     });
