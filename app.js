@@ -102,6 +102,6 @@ app.get('/',function(req,res) {
     res.send('Hello To My Api');
 });
 io = require('./io/io.js')(io);
-server.listen(server_port, server_ip_address,function(){
+server.listen(server_port, function(){
     console.log('Server Start ON Port '+server_port);
 });
