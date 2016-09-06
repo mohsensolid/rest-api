@@ -34,6 +34,9 @@ require('./config/passport.js')(app);
 userRouter = require('./routes/UserRouter.js')(User);
 app.use('/api/users',userRouter);
 
+app.get('/',function(req,res) {
+    res.send('Hello To My Api');
+});
 
 userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
 app.use('/api/request',userRequestRouter);
@@ -98,10 +101,8 @@ app.use('/api/books',booksRouter);
 app.use('/api/furits',furitRouter);
 app.use('/api/orders',orderRouter);
 app.use('/api/messages',messageRouter);
-app.get('/',function(req,res) {
-    res.send('Hello To My Api');
-});
+
 io = require('./io/io.js')(io);
-server.listen(server_port, function(){
-    console.log('Server Start ON Port '+server_port);
+server.listen(server_port,server_ip_address, function(){
+    console.log('Server Start'+server_ip_address+' ON Port '+server_port);
 });
