@@ -67,7 +67,18 @@ ordersRouter.route('/undone')
         }
     });
 });
-
+ordersRouter.route('/:id/done')
+.patch(function(req,res){
+  Order.update({Order_ID:req.params.id }, { $set: { Done: true } } ,function(err,orders){
+        if(err)
+        {
+        res.status(500).send(err);
+        }else
+        {
+        res.json(orders);
+        }
+    });
+});
 ordersRouter.route('/')
 .post(corderController.post)
 .get(corderController.get);
