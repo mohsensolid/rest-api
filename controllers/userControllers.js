@@ -15,9 +15,21 @@ var UserController = function(User){
 };
     var post = function(req,res){
     var user = User(req.body);
-    user.save();
-  
-    res.status(201).send(user);
+ User.findOne({'User_Name':user.User_Name} ,function(err,result){
+        if(err)
+        {
+        res.status(500).send(err);
+        }else
+        {
+       if(!result){
+        user.save();
+        res.status(201).send(user);
+       }else{
+        res.status(404).send("کاربری با این نام هست");
+              }
+
+        }
+    });
 };
     return{
         post:post,
