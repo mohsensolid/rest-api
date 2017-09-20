@@ -103,6 +103,6 @@ app.use('/api/orders',orderRouter);
 app.use('/api/messages',messageRouter);
 
 io = require('./io/io.js')(io);
-server.listen(server_port,server_ip_address, function(){
-    console.log('Server Start'+server_ip_address+' ON Port '+server_port);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
