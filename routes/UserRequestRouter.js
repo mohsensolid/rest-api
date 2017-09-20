@@ -9,7 +9,18 @@ userRequestRouter.route('/')
 
 userRequestRouter.route('/')
 .get(cuserRequestController.get);
-
+userRequestRouter.route('/:id')
+.delete(function(req,res){
+    UserRequest.remove( {"_id": req.params.id} ,function(err,orders){
+        if(err)
+        {
+        res.status(500).send(err);
+        }else
+        {
+        res.json(orders);
+        }
+    });
+});
 return userRequestRouter;
 };
 module.exports = route;
