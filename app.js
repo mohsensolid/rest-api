@@ -10,9 +10,7 @@ var jwt = require('jwt-simple');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.PORT || 3000 ;
+var port = process.env.PORT || 5000 ;
 
 var db = mongoose.connect('mongodb://mohsen:mohsen@ds139715.mlab.com:39715/myfirstdb');
 
@@ -103,6 +101,6 @@ app.use('/api/orders',orderRouter);
 app.use('/api/messages',messageRouter);
 
 io = require('./io/io.js')(io);
-server.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+server.listen(port,function(){
+    console.log('Server Start ON Port '+port);
 });
