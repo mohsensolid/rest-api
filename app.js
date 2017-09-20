@@ -10,9 +10,9 @@ var jwt = require('jwt-simple');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 1337;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-// var port = process.env.PORT || 5000 ;
+var port = process.env.PORT || 1337 ;
 
 var db = mongoose.connect('mongodb://mohsen:mohsen@ds139715.mlab.com:39715/myfirstdb');
 
