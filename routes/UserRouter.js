@@ -25,7 +25,7 @@ var route = function(User){
     .patch(function(req,res){
         if(req.body._id)
             delete req.body._id;
-      if(req.body.OldPass == req.user.Password){
+      if( bcrypt.compareSync(req.body.OldPass, req.user.Password)){
         var hash = bcrypt.hashSync(req.body.NewPass, 8);
         req.user.Password =hash;
             // for(var p in req.body)
