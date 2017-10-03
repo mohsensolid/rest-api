@@ -76,7 +76,7 @@ app.use('/api/request',userRequestRouter);
     //   }
 
 
-booksRouter = require('./routes/BookRouter.js')(Book);
+// booksRouter = require('./routes/BookRouter.js')(Book);
 furitRouter = require('./routes/FuritRouter.js')(Furit);
 orderRouter = require('./routes/OrderRouter.js')(Order,User);
 messageRouter = require('./routes/MessageRouter.js')(Message);
@@ -97,7 +97,7 @@ messageRouter = require('./routes/MessageRouter.js')(Message);
 //   }
 // });
 
-app.use('/api/books',booksRouter);
+// app.use('/api/books',booksRouter);
 app.use('/api/furits',furitRouter);
 app.use('/api/orders',orderRouter);
 app.use('/api/messages',messageRouter);
