@@ -1,4 +1,6 @@
 var express = require('express');
+var bcrypt = require('bcryptjs');
+
 var UserRouterRouter = express.Router();
 
 var route = function(User){
