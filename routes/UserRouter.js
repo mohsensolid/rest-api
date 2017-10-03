@@ -11,14 +11,18 @@ usersRouter.route('/signIn')
     }),function(req,res) {
         // res.json(req.body);
             var user = User(req.user);
+         
             var tokenparameter = {
+                // _id:user._id,
                 User_Name:user.User_Name,
                 Admin:user.Admin
             };
              
                 //    console.log(user);
                         var token = jwt.encode(tokenparameter, 'secret');
-                                    res.json({access_token :token});
+                                    res.json({access_token :token,
+                                        _id:user._id
+                                    });
 
                                         });
  
@@ -31,13 +35,14 @@ usersRouter.route('/')
 
 
 // usersRouter.use('/:id',function(req,res,next){
+//     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 // var query = {};
 //      User.findOne({User_Name:req.params.id},function(err,user){
         
 //         if(err)
 //         {
 //         res.status(500).send(err);
-//         }else if (user)
+//         }else if (user )
 //         {
 //             req.user = user;
 //              next();
@@ -48,11 +53,20 @@ usersRouter.route('/')
       
 //     });
 // });
-
+// // usersRouter.use(function(req,res,next){
+// //     if(req.decoded.Admin)
+// //         {  
+// //             next();
+// //         }
+// //        else
+// //        {
+// //            res.json([]);
+// //        }
+// // });
 // usersRouter.route('/:id')
 // .get(function(req,res){
 //     res.json(req.user);
-// })
+// });
 // .patch(function(req,res){
 //     if(req.body._id)
 //         delete req.body._id;
