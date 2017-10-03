@@ -36,8 +36,7 @@ app.get('/',function(req,res) {
     res.send('Hello To My Api');
 });
 
-userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
-app.use('/api/request',userRequestRouter);
+
 
 
 app.use(function(req, res, next) {
@@ -61,7 +60,10 @@ else
     res.json({success:false,message:'Token not Provided!'});
 }
 });
-
+ChangePassRouter = require('./routes/ChangePassRoute.js')(User);
+app.use('/api/modify',ChangePassRouter);
+userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
+app.use('/api/request',userRequestRouter);
     // verifies secret and checks exp
     //  var decoded = jwt.decode(token, 'secret');    
     //    console.log(decoded);
