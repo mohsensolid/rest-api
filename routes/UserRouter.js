@@ -25,52 +25,52 @@ usersRouter.route('/signIn')
 
 
 usersRouter.route('/')
-.post(cuserController.post)
-.get(cuserController.get);
+.post(cuserController.post);
+// .get(cuserController.get);
 
 
 
-usersRouter.use('/:id',function(req,res,next){
-var query = {};
-     User.findOne({User_Name:req.params.id},function(err,user){
+// usersRouter.use('/:id',function(req,res,next){
+// var query = {};
+//      User.findOne({User_Name:req.params.id},function(err,user){
         
-        if(err)
-        {
-        res.status(500).send(err);
-        }else if (user)
-        {
-            req.user = user;
-             next();
-        }
-        else{
-        res.status(404).send('user not Found !!');
-        }
+//         if(err)
+//         {
+//         res.status(500).send(err);
+//         }else if (user)
+//         {
+//             req.user = user;
+//              next();
+//         }
+//         else{
+//         res.status(404).send('user not Found !!');
+//         }
       
-    });
-});
+//     });
+// });
 
-usersRouter.route('/:id')
-.get(function(req,res){
-    res.json(req.user);
-})
-.patch(function(req,res){
-    if(req.body._id)
-        delete req.body._id;
-for(var p in req.body)
-    {
-        req.user[p] = req.body[p];
-    }
-    req.user.save(function(err){
-        if(err)
-        {
-            res.status(500).send(err);
-        }
-        else{
+// usersRouter.route('/:id')
+// .get(function(req,res){
+//     res.json(req.user);
+// })
+// .patch(function(req,res){
+//     if(req.body._id)
+//         delete req.body._id;
+// for(var p in req.body)
+//     {
+//         req.user[p] = req.body[p];
+//     }
+//     req.user.save(function(err){
+//         if(err)
+//         {
+//             res.status(500).send(err);
+//         }
+//         else{
                
-            res.json(req.user);
-        }
-    });
-});
+//             res.json(req.user);
+//         }
+//     });
+// });
 
 
                                            //     req.login(req.body,function() {
