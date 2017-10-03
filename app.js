@@ -1,6 +1,6 @@
 var express = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser');
+mongoose = require('mongoose'),
+bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -13,8 +13,6 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 5000 ;
 
 var db = mongoose.connect('mongodb://mohsen:mohsen@ds139715.mlab.com:39715/myfirstdb');
-
-// var Book = require('./models/bookModels.js');
 var Furit = require('./models/furit.js');
 var Order = require('./models/orderModel.js');
 var User = require('./models/userModels.js');
@@ -29,8 +27,8 @@ app.use(cookieParser());
 
 require('./config/passport.js')(app);
 
-userRouter = require('./routes/UserRouter.js')(User);
-app.use('/api/users',userRouter);
+SignInRouter = require('./routes/SignInRouter.js')(User);
+app.use('/api/users',SignInRouter);
 
 app.get('/',function(req,res) {
     res.send('Hello To My Api');
@@ -41,10 +39,8 @@ app.get('/',function(req,res) {
 
 app.use(function(req, res, next) {
 
-  // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-  // decode token
   if (token) {
         try {
     var decoded = jwt.decode(token, 'secret');
@@ -60,44 +56,18 @@ else
     res.json({success:false,message:'Token not Provided!'});
 }
 });
-ChangePassRouter = require('./routes/ChangePassRoute.js')(User);
-app.use('/api/modify',ChangePassRouter);
+UserRouter = require('./routes/UserRouter.js')(User);
+app.use('/api/users',UserRouter);
+
 userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
 app.use('/api/request',userRequestRouter);
-    // verifies secret and checks exp
-    //  var decoded = jwt.decode(token, 'secret');    
-    //    console.log(decoded);
-    //   if (decoded===null) {
-    //      res.json({ success: false, message: 'Failed to authenticate token.' });    
-    //   } else {
-    //     // if everything is good, save to request for use in other routes
-    //     req.decoded = decoded;    
-    //     next();
-    //   }
 
 
-// booksRouter = require('./routes/BookRouter.js')(Book);
 furitRouter = require('./routes/FuritRouter.js')(Furit);
 orderRouter = require('./routes/OrderRouter.js')(Order,User);
 messageRouter = require('./routes/MessageRouter.js')(Message);
 
 
-
-// app.use(function (req, res,next) {
-//   var credentials = auth(req);
-
-//   if (!credentials || credentials.name !== 'john' || credentials.pass !== 'secret') {
-//     res.statusCode = 401;
-//     res.setHeader('WWW-Authenticate', 'Basic realm="example"');
-//     // res.redirect('/');
-//     res.end('Access denied');
-//   } else {
-//     // res.end('Access granted');
-//     next();
-//   }
-// });
-
-// app.use('/api/books',booksRouter);
 app.use('/api/furits',furitRouter);
 app.use('/api/orders',orderRouter);
 app.use('/api/messages',messageRouter);

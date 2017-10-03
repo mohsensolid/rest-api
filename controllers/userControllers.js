@@ -1,3 +1,5 @@
+var bcrypt = require('bcryptjs')
+
 var UserController = function(User){
     var get = function(req,res){
     var query = {};
@@ -15,13 +17,17 @@ var UserController = function(User){
 };
     var post = function(req,res){
     var user = User(req.body);
- User.findOne({'User_Name':user.User_Name} ,function(err,result){
+    
+    User.findOne({'User_Name':user.User_Name} ,function(err,result){
         if(err)
         {
         res.status(500).send(err);
         }else
         {
        if(!result){
+        var hash = bcrypt.hashSync(user.Password, 8);
+        user.Password=hash;
+        user.Admin=false;    
         user.save();
         res.status(201).send(user);
        }else{
@@ -30,6 +36,7 @@ var UserController = function(User){
 
         }
     });
+  
 };
     return{
         post:post,

@@ -19,7 +19,7 @@ ordersRouter.route('/addorder')
 
 ordersRouter.route('/userorder/:username')
 .get(function(req,res){
-    Order.find({User_Name:req.params.username},function(err,userorders){
+    Order.find({User_Name:req.decoded.User_Name},function(err,userorders){
         if(err)
         {
         res.status(500).send(err);

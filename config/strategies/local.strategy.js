@@ -1,4 +1,5 @@
 var passport = require('passport');
+var bcrypt = require('bcryptjs');
 var LocalStrategy = require ('passport-local').Strategy;
 var User = require('../../models/userModels.js');
 var local = function() {
@@ -9,10 +10,9 @@ var local = function() {
            User.findOne({User_Name :username},
                     function(err,resualt) {
                         if (resualt !== null) {
-                            if (resualt.Password == password)
+                            if(bcrypt.compareSync(password, resualt.Password))
                             {
                                 var user = User(resualt);
-                                // console.log(user.Admin);
                                 done(null,user);
                             }
                             else
@@ -22,7 +22,6 @@ var local = function() {
                         }
                         else {
                             done(null,false,{message : 'Bad Password !!'});
-                            
                         }
                     }
                         );
