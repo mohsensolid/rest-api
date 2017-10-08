@@ -63,50 +63,40 @@ var route = function(User){
 UserRouterRouter.route('/')
 .post(cuserController.post)
 .get(cuserController.get);
-
-UserRouterRouter.use('/:id',function(req,res,next){
-    var query = {};
-         User.findOne({User_Name:req.params.id},function(err,user){
-            
-            if(err)
+UserRouterRouter.route('/modify/:id')
+    .patch(function(req,res){
+      User.findOne( {"User_Name": req.params.id} ,function(err,user){
+       if(err)
             {
             res.status(500).send(err);
             }else if (user)
             {
-                req.user = user;
-                 next();
+                if(req.body._id)
+                delete req.body._id;
+                if(req.body.Password)
+                delete req.body.Password;
+               if(req.body.User_Name)
+                delete req.body.User_Name;
+                if(req.body.Email)
+                delete req.body.Email;
+        for(var p in req.body)
+            {
+                user[p] = req.body[p];
+            }
+            user.save(function(err){
+                if(err)
+                {
+                    res.status(500).send(err);
+                }
+                else{
+                    res.json(user);
+                }
+            });
             }
             else{
             res.status(404).send('user not Found !!');
             }
           
-        });
-    });
-    
-    UserRouterRouter.route('/:id')
-    .get(function(req,res){
-        res.json(req.user);
-    })
-    .patch(function(req,res){
-        if(req.body._id)
-            delete req.body._id;
-            if(req.body.Password)
-            delete req.body.Password;
-           if(req.body.User_Name)
-            delete req.body.User_Name;
-    for(var p in req.body)
-        {
-            req.user[p] = req.body[p];
-        }
-        req.user.save(function(err){
-            if(err)
-            {
-                res.status(500).send(err);
-            }
-            else{
-                    console.log(req.user.Available );
-                res.json(req.user);
-            }
         });
     });
     return UserRouterRouter;
