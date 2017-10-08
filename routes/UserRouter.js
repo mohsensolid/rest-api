@@ -60,34 +60,55 @@ var route = function(User){
               res.json([]);
            }
    });
-UserRouterRouter.route('/:id')
-.get(function(req,res){
-res.json(req.user);
-}
-.patch(function(req,res){
-if(req.body._id)
-  delete req.body._id;
-  if(req.body.Password)
-  delete req.body.Password;
- if(req.body.User_Name)
-  delete req.body.User_Name;
-for(var p in req.body)
-{
-    req.user[p] = req.body[p];
-}
-req.user.save(function(err){
-   if(err)
-    {
-       res.status(500).send(err);
-    }
-   else{
-            
-    res.json(req.user);
- }
- });}));
-   UserRouterRouter.route('/')
+UserRouterRouter.route('/')
 .post(cuserController.post)
 .get(cuserController.get);
+
+UserRouterRouter.use('/:id',function(req,res,next){
+    var query = {};
+         User.findOne({User_Name:req.params.id},function(err,user){
+            
+            if(err)
+            {
+            res.status(500).send(err);
+            }else if (user)
+            {
+                req.user = user;
+                 next();
+            }
+            else{
+            res.status(404).send('user not Found !!');
+            }
+          
+        });
+    });
+    
+    UserRouterRouter.route('/:id')
+    .get(function(req,res){
+        res.json(req.user);
+    })
+    .patch(function(req,res){
+        if(req.body._id)
+            delete req.body._id;
+            if(req.body.Password)
+            delete req.body.Password;
+           if(req.body.User_Name)
+            delete req.body.User_Name;
+    for(var p in req.body)
+        {
+            req.user[p] = req.body[p];
+        }
+        req.user.save(function(err){
+            if(err)
+            {
+                res.status(500).send(err);
+            }
+            else{
+                    console.log(req.user.Available );
+                res.json(req.user);
+            }
+        });
+    });
     return UserRouterRouter;
     };
     module.exports = route;
