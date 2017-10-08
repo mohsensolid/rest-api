@@ -63,7 +63,7 @@ var route = function(User){
 usersRouter.route('/:id')
     .get(function(req,res){
     res.json(req.user);
-
+}
  .patch(function(req,res){
    if(req.body._id)
        delete req.body._id;
