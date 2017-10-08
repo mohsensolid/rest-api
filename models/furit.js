@@ -6,6 +6,7 @@ var furitSchema = new Schema({
     FuritName:{type:String, default :''},
     FuritImage:{type:String, default :''},
     FuritCount:{type:Number, default :null},
+    FuritImageURL:{type:String, default :null},
     FuritType:{type:String, default :''},
     FuritType1:{type:String, default :''},
     FuritType2:{type:String, default :''},
