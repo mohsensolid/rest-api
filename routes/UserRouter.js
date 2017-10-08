@@ -85,7 +85,6 @@ for(var p in req.body)
          res.json(req.user);
       }
   });
-});
    UserRouterRouter.route('/')
 .post(cuserController.post)
 .get(cuserController.get);
