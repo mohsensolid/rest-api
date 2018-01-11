@@ -6,8 +6,11 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var auth = require('basic-auth');
 var jwt = require('jwt-simple');
+var cors = require('cors');
 
 var app = express();
+app.use(cors());
+
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 5000 ;
