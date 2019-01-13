@@ -6,16 +6,16 @@ var cuserRequestController = require('../controllers/UserRequestControllers.js')
 
 userRequestRouter.route('/')
 .post(cuserRequestController.post);
-userRequestRouter.use(function(req,res,next){
-    if(req.decoded.Admin)
-        {  
-            next();
-        }
-       else
-       {
-          res.json([]);
-       }
-});
+// userRequestRouter.use(function(req,res,next){
+//     if(req.decoded.Admin)
+//         {  
+//             next();
+//         }
+//        else
+//        {
+//           res.json([]);
+//        }
+// });
 userRequestRouter.route('/')
 .get(cuserRequestController.get);
 userRequestRouter.route('/:id')
