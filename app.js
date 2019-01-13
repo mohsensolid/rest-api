@@ -37,6 +37,8 @@ app.get('/',function(req,res) {
     res.send('Hello To My Api');
 });
 
+userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
+app.use('/api/request',userRequestRouter);
 
 
 
@@ -62,8 +64,6 @@ else
 UserRouter = require('./routes/UserRouter.js')(User);
 app.use('/api/users',UserRouter);
 
-userRequestRouter = require('./routes/UserRequestRouter.js')(UserRequest);
-app.use('/api/request',userRequestRouter);
 
 
 furitRouter = require('./routes/FuritRouter.js')(Furit);
